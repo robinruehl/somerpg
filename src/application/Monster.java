@@ -8,19 +8,28 @@ public class Monster {
 	
 
 
-	public class Enemy {
+	public static class Enemy {
 		int maxEnemyHealth = 100;
 		float enemyNewHealth;
 		int maxEnemyAttackDMG = 25;
 		float enemyHealth;
 		int level;
 		String enemyname;
+		static int enemyNBR;
 
-		public void getnewEnemy() {
+		public static int getEnemyNBR() {
+			return enemyNBR;
+		}
+
+		public static void setEnemyNBR(int enemyNBR) {
+			Enemy.enemyNBR = enemyNBR;
+		}
+
+		/*public static void getnewEnemy() {
 			enemyHealth = rand.nextInt(maxEnemyHealth);
 			enemyname = enemies[rand.nextInt(enemies.length)];
 			return ;
-		}
+		}*/
 	}
 	public static class Player {
 		static int luck = 10;

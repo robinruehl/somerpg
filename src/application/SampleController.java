@@ -1,7 +1,10 @@
 package application;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
@@ -69,6 +72,10 @@ public class SampleController {
     private Text perkpoints;
     @FXML
     private Text menuPlayerIntelligence;
+    @FXML
+    private Text playerXperienceDisplay;
+    @FXML
+    private Text playerXPtofin;
 
 
 
@@ -86,7 +93,8 @@ public class SampleController {
 	boolean yourTurn = false;
 	int posx;
 	int posy;
-
+	static Set<Integer> foo = new HashSet<Integer>();
+	static boolean canloopde = false;
 	//Player
 
 	/*
@@ -158,6 +166,19 @@ public class SampleController {
 	}
 
 	public void startgame() {
+		int d = 1;
+		int e = 1000;
+		canloopde = true;
+		while (canloopde) {
+			if (d<e) {
+				foo.add(10*d);
+				d ++;
+				System.out.println(d);
+			}
+			else {
+				canloopde = false;
+			}
+		}
 		consoleText.setText("Welcome to the never ending Tomb!");
 		consoleTXT = "Welcome to the never ending Tomb!";
 		consoleWrite("----------------------------------------------");
@@ -184,15 +205,26 @@ public class SampleController {
 	}
 
 	private void newEnemy() {
-		enemyHealth = rand.nextInt(maxEnemyHealth);
-		enemy = enemies[rand.nextInt(enemies.length)];
-		enemyNewHealth = enemyHealth;
+		if (foo.contains(Monster.Enemy.getEnemyNBR())) {
+			enemyHealth = (rand.nextInt(maxEnemyHealth/2)+maxEnemyHealth/2)*10;
+			enemy = enemies[rand.nextInt(enemies.length)];
+			enemyNewHealth = enemyHealth;
+			maxEnemyAttackDMG = 25+25*Monster.Enemy.getEnemyNBR()/50;
+			consoleWrite("\t !!!!A special enemy of the "+ enemy + " type just appeard");
+		}
+		else {
+			enemyHealth = (rand.nextInt(maxEnemyHealth/2)+maxEnemyHealth/2);
+			enemy = enemies[rand.nextInt(enemies.length)];
+			enemyNewHealth = enemyHealth;
+			maxEnemyAttackDMG = 25+25*Monster.Player.getLevel()/50;
+			consoleWrite("\t An enemy of the "+ enemy + " type just appeard");
+		}
 		hpbar = (Monster.Player.health/Monster.Player.maxHealth);
 		//consoleWrite("debug hp" + Monster.Player.health);
 		//consoleWrite("debug max hp" + Monster.Player.maxHealth);
 		//consoleWrite("debug hp double" + hpbar);
-		consoleWrite("\t An enemy of the "+ enemy + " type just appeard");
 		enemyName.setText(enemy);
+		Monster.Enemy.setEnemyNBR(Monster.Enemy.getEnemyNBR()+1);
 		update();
 		encounter();
 	}
@@ -200,7 +232,7 @@ public class SampleController {
 	private void encounter() {
 		turn ++;
 		consoleWrite("----------------------------------------------");
-		consoleWrite("Turn number " + turn);
+		consoleWrite("Turn number " + turn + ", Enemy number " + Monster.Enemy.getEnemyNBR());
 		consoleWrite("----------------------------------------------");
 		consoleWrite("\t your HP: " + Monster.Player.health);
 		consoleWrite("\t " + enemy + "'s HP: " + enemyHealth);
@@ -268,13 +300,13 @@ public class SampleController {
 	public void damageCalc() {
 		if (yourTurn){
 			yourTurn = false;
-			int damageDealt = rand.nextInt(Monster.Player.attackDamage);
+			int damageDealt = rand.nextInt((Monster.Player.attackDamage/2))+(Monster.Player.attackDamage/2);
 			int damageTaken = rand.nextInt(maxEnemyAttackDMG);
 			enemyHealth -= damageDealt;
 			Monster.Player.health -= damageTaken;
 			hpbar = (Monster.Player.health/Monster.Player.maxHealth);
-			consoleWrite("Youve done " + damageDealt + "damage, the enemy has " + enemyHealth + " health left.");
-			consoleWrite("Youve taken " + damageTaken + "damage, you have " + Monster.Player.health + " health left.");
+			consoleWrite("Youve done " + damageDealt + " damage, the enemy has " + enemyHealth + " health left.");
+			consoleWrite("Youve taken " + damageTaken + " damage, you have " + Monster.Player.health + " health left.");
 			update();
 			if (Monster.Player.health <= 0) {
 				consoleWrite("Youve taken too much damage and have died.");
@@ -307,6 +339,7 @@ public class SampleController {
 					Monster.Player.health = Monster.Player.maxHealth;
 					update();
 				}
+				update();
 				healthBar.setProgress(Monster.Player.health/Monster.Player.maxHealth);
 				consoleWrite("Youve drank a health pot and youve heald to " + Monster.Player.health + "HP.");
 				response = true;
@@ -372,14 +405,35 @@ public class SampleController {
         else {
         	consoleWrite("Thus you did not find a health pot on his body.");
         }
-        int xpRoll = (rand.nextInt(10)/10*200);
+        int xpRoll = ((rand.nextInt(5)+5)*50/10);
+        consoleWrite("XP Roll: "+xpRoll);
         float experience = (Monster.Player.getIntelligence()*xpRoll);
-        Monster.Player.setExperience(experience);
+        Monster.Player.setExperience(Monster.Player.getExperience()+experience);
+        consoleWrite("XP: "+experience);
         if ((Monster.Player.getExperience())>=(Monster.Player.getLevel()*150)) {
-        	Monster.Player.setExperience(0);
+        	Monster.Player.setExperience(Monster.Player.getExperience()-(Monster.Player.getLevel()*150));
         	Monster.Player.setLevel(Monster.Player.getLevel() + 1);
         	Monster.Player.setPerkpoints(Monster.Player.getPerkpoints()+1);
         }
+        if (foo.contains(Monster.Enemy.getEnemyNBR())) {
+        	moneyDrop = (rand.nextInt(100)*Monster.Player.luck)/50;
+    		consoleWrite("!!!!youve found " + moneyDrop + " extra money on the special enemys Body!");
+    		Monster.Player.money += moneyDrop;
+            result = round(Monster.Player.money,2);
+            Monster.Player.money = result.floatValue();
+            displaymoney(Monster.Player.money);
+            xpRoll = ((rand.nextInt(5)+5)*50/5);
+            consoleWrite("XP Roll: "+xpRoll);
+            experience = (Monster.Player.getIntelligence()*xpRoll);
+            Monster.Player.setExperience(Monster.Player.getExperience()+experience);
+            consoleWrite("XP: "+experience);
+            if ((Monster.Player.getExperience())>=(Monster.Player.getLevel()*150)) {
+            	Monster.Player.setExperience(Monster.Player.getExperience()-(Monster.Player.getLevel()*150));
+            	Monster.Player.setLevel(Monster.Player.getLevel() + 1);
+            	Monster.Player.setPerkpoints(Monster.Player.getPerkpoints()+1);
+            }
+        }
+        update();
 	}
 	private static BigDecimal round(float d, int decimalPlace) {
         BigDecimal bd = new BigDecimal(Float.toString(d));
@@ -402,7 +456,11 @@ public class SampleController {
     	int Luck = Monster.Player.getLuck();
     	int pp = Monster.Player.getPerkpoints();
     	int intelligence = Monster.Player.getIntelligence();
+    	float xptomax = (Monster.Player.getLevel()*150);
     	
+    	playerLevel.setText(""+Monster.Player.getLevel());
+    	playerXperienceDisplay.setText(""+Monster.Player.getExperience()+"/"+xptomax);
+    	xpBar.setProgress(Monster.Player.getExperience()/xptomax);
     	hppotAmmount.setText("" + healthPots);
 		healthBar.setProgress(hpbar);
 		hpAmmount.setText("" + health);

@@ -54,10 +54,11 @@
                               <Text fx:id="playermoney" layoutX="48.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                               <Text layoutX="3.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level:" />
                               <Text fx:id="playerLevel" layoutX="41.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1" />
-                              <Text layoutX="47.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="XP" fx:id="xpAmmount" />
+                              <Text layoutX="7.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="XP" fx:id="xpAmmount" />
                               <Text fx:id="hpAmmount" layoutX="46.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HP" />
                               <Text layoutX="3.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Health pots:" />
                               <Text fx:id="hppotAmmount" layoutX="75.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pots" />
+                              <Text fx:id="playerXperienceDisplay" layoutX="29.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
                            </children>
                         </AnchorPane>
                         <Button fx:id="buttonAttack" layoutX="593.0" layoutY="210.0" mnemonicParsing="false" onAction="#damageCalc" prefHeight="25.0" prefWidth="52.0" text="Attack" />
