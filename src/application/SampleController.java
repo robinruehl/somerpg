@@ -2,10 +2,6 @@ package application;
 
 import java.math.BigDecimal;
 import java.util.Random;
-import java.util.Scanner;
-
-import javax.swing.event.EventListenerList;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
@@ -17,81 +13,151 @@ import javafx.scene.text.Text;
 
 public class SampleController {
 
-    @FXML
+	@FXML
     private AnchorPane main;
-
-    @FXML
-    private Button buttonclose;
-
     @FXML
     private TextField consoleinp;
-
     @FXML
     private ScrollPane consoleTextScrollPane;
-
     @FXML
     private TitledPane titledPane;
-
     @FXML
-    private Text consoleText;
-
+    private  Text consoleText;
     @FXML
     private Button buttonStart;
-
     @FXML
     private Button buttonEnter;
-
     @FXML
     private ProgressBar healthBar;
-
     @FXML
     private ProgressBar xpBar;
-
-    @FXML
-    private ProgressBar enemyHealthbar;
-
-    @FXML
-    private Text enemyName;
-
     @FXML
     private Text playermoney;
+    @FXML
+    private Text playerLevel;
+    @FXML
+    private Text xpAmmount;
+    @FXML
+    private Text hpAmmount;
+    @FXML
+    private Button buttonAttack;
+    @FXML
+    private Button buttonRun;
+    @FXML
+    private Button buttonPot;
+    @FXML
+    private Text enemyName;
+    @FXML
+    private ProgressBar enemyHealthbar;
+    @FXML
+    private Text enemyhpAmmount;
+    @FXML
+    private Text hppotAmmount;
+    @FXML
+    private Text menuPlayerMaxHealth;
+    @FXML
+    private Text menuPlayerAttackDamage;
+    @FXML
+    private Text menuPlayerLuck;
+
 
 
 
 
     Random rand = new Random();
-
-	String[] enemies = {"Skeleton", "Zombie", "Warrior", "Assassin"};
-	int maxEnemyHealth = 100;
-	float enemyNewHealth;
-	int maxEnemyAttackDMG = 25;
-	float enemyHealth;
-	float health = 100;
-	float maxHealth = 100;
-	int attackDamage = 50;
-	int healthPots = 5;
-	float healthPotsHeal = 40;
-	int healthPotDropChance = 50; //in %
 	boolean response = true;
-	String consoleTXT;
+	static String consoleTXT;
 	String inputTXT;
 	boolean input = false;
 	boolean encounterIsWaitingForInput = false;
-	String enemy;
 	boolean scrollbarListener = false;
 	boolean hpListener = false;
 	boolean xpListener = false;
 	int turn = 0;
+	boolean yourTurn = false;
+	int posx;
+	int posy;
+
+	//Player
+
+	/*
+	float health = 100;
+	float Monster.Player.maxHealth = 100;
+	int Monster.Player.attackDamage = 50;
+	int Monster.Player.healthPots = 5;
+	float Monster.Player.healthPotsHeal = 40;
 	float luck = 10;
 	float money = 0;
-	boolean yourTurn = false;
+	 */
 
-	double hpbar;
+	//Enemy
+
+	int maxEnemyHealth = 100;
+	
+	private int getMaxEnemyHealth() {
+		return maxEnemyHealth;
+	}
+
+	private void setMaxEnemyHealth(int maxEnemyHealth) {
+		this.maxEnemyHealth = maxEnemyHealth;
+	}
+
+	private static float getEnemyNewHealth() {
+		return enemyNewHealth;
+	}
+
+	private static void setEnemyNewHealth(float enemyNewHealth) {
+		SampleController.enemyNewHealth = enemyNewHealth;
+	}
+
+	private int getMaxEnemyAttackDMG() {
+		return maxEnemyAttackDMG;
+	}
+
+	private void setMaxEnemyAttackDMG(int maxEnemyAttackDMG) {
+		this.maxEnemyAttackDMG = maxEnemyAttackDMG;
+	}
+
+	private static float getEnemyHealth() {
+		return enemyHealth;
+	}
+
+	private static void setEnemyHealth(float enemyHealth) {
+		SampleController.enemyHealth = enemyHealth;
+	}
+
+	private static String getEnemy() {
+		return enemy;
+	}
+
+	private static void setEnemy(String enemy) {
+		SampleController.enemy = enemy;
+	}
+	static float enemyNewHealth;
+	int maxEnemyAttackDMG = 25;
+	static float enemyHealth;
+	String[] enemies = {"Skeleton", "Zombie", "Warrior", "Assassin"};
+	static String enemy;
+	static double hpbar;
+
+	private static double getHpbar() {
+		return hpbar;
+	}
+
+	private static void setHpbar(double hpbar) {
+		SampleController.hpbar = hpbar;
+	}
 
 	public void startgame() {
-
-		consoleWrite("start");
-
+		consoleText.setText("Welcome to the never ending Tomb!");
+		consoleTXT = "Welcome to the never ending Tomb!";
+		consoleWrite("----------------------------------------------");
+		Float maxHealth = Monster.Player.getMaxHealth();
+    	int maxAttackDamage = Monster.Player.getAttackDamage();
+    	int Luck = Monster.Player.getLuck();
+		menuPlayerMaxHealth.setText(""+maxHealth);
+		menuPlayerAttackDamage.setText(""+maxAttackDamage);
+		menuPlayerLuck.setText(""+Luck);
 		if (!scrollbarListener){
 			scrollbarListener = true;
 			titledPane.heightProperty().addListener(
@@ -103,34 +169,32 @@ public class SampleController {
 		}
 
 		if (response) {
-
 			response = false;
-			healthBar.setProgress(health/maxHealth);
 			newEnemy();
 		}
 	}
 
-	public void newEnemy() {
+	private void newEnemy() {
 		enemyHealth = rand.nextInt(maxEnemyHealth);
 		enemy = enemies[rand.nextInt(enemies.length)];
-
 		enemyNewHealth = enemyHealth;
-		enemyHealthbar.setProgress(enemyHealth/enemyNewHealth);
-
-		consoleWrite("\t"+ enemy + " appeard \n");
-
+		hpbar = (Monster.Player.health/Monster.Player.maxHealth);
+		//consoleWrite("debug hp" + Monster.Player.health);
+		//consoleWrite("debug max hp" + Monster.Player.maxHealth);
+		//consoleWrite("debug hp double" + hpbar);
+		consoleWrite("\t An enemy of the "+ enemy + " type just appeard");
 		enemyName.setText(enemy);
-
 		encounter();
 	}
 
-	public void encounter() {
+	private void encounter() {
 		turn ++;
+		consoleWrite("----------------------------------------------");
 		consoleWrite("Turn number " + turn);
-
-		consoleWrite("\t your HP: " + health);
+		consoleWrite("----------------------------------------------");
+		consoleWrite("\t your HP: " + Monster.Player.health);
 		consoleWrite("\t " + enemy + "'s HP: " + enemyHealth);
-		consoleWrite("\t What would you like to do?");
+		consoleWrite("\t What would you like to do? \n");
 		consoleWrite("\t 1. attack");
 		consoleWrite("\t 2. drink health pot");
 		consoleWrite("\t 3. run!");
@@ -138,7 +202,7 @@ public class SampleController {
 		encounterIsWaitingForInput = true;
 	}
 
-	public void action() {
+	private void action() {
 		if(inputTXT.equals("1")){
 			damageCalc();
 			consoleWrite("debug action damage");
@@ -176,42 +240,39 @@ public class SampleController {
 	}
 	private void consoleWrite(String text) {
 		if (consoleTXT == null) {
+			System.out.println("consoleTXT == null");
+			System.out.println(text);
+			System.out.println(consoleTXT);
 			consoleText.setText(text);
 			consoleTXT = text;
 		}
 		else{
+			System.out.println("else");
+			System.out.println(text);
+			System.out.println(consoleTXT);
 			consoleTXT = consoleTXT + "\n " + text;
 			consoleText.setText(consoleTXT);
+			
 		}
-
 	}
-
-
 	public void damageCalc() {
 		if (yourTurn){
 			yourTurn = false;
-			int damageDealt = rand.nextInt(attackDamage);
+			int damageDealt = rand.nextInt(Monster.Player.attackDamage);
 			int damageTaken = rand.nextInt(maxEnemyAttackDMG);
 			enemyHealth -= damageDealt;
-			health -= damageTaken;
-
-			hpbar = (health/maxHealth);
-			consoleWrite("debug hp" + health);
-			consoleWrite("debug max hp" + maxHealth);
-			consoleWrite("debug hp double" + hpbar);
-
-			healthBar.setProgress(hpbar);
-			enemyHealthbar.setProgress(enemyHealth/enemyNewHealth);
-
+			Monster.Player.health -= damageTaken;
+			hpbar = (Monster.Player.health/Monster.Player.maxHealth);
 			consoleWrite("Youve done " + damageDealt + "damage, the enemy has " + enemyHealth + " health left.");
-			consoleWrite("Youve taken " + damageTaken + "damage, you have " + health + " health left.");
-
-			if (health <= 0) {
+			consoleWrite("Youve taken " + damageTaken + "damage, you have " + Monster.Player.health + " health left.");
+			update();
+			if (Monster.Player.health <= 0) {
 				consoleWrite("Youve taken too much damage and have died.");
 			}
 			else if (enemyHealth <= 0) {
 				consoleWrite("The enemy has died");
 				lootdrop();
+				consoleWrite("----------------------------------------------");
 				newEnemy();
 			}
 			else {
@@ -227,16 +288,18 @@ public class SampleController {
 	public void takePot() {
 		if (yourTurn){
 			yourTurn = false;
-			if(healthPots > 0) {
-				health += healthPotsHeal;
-				healthPots --;
-				if (health > maxHealth) {
-					health = maxHealth;
+			update();
+			if(Monster.Player.healthPots > 0) {
+				Monster.Player.health += Monster.Player.healthPotsHeal;
+				Monster.Player.healthPots --;
+				if (Monster.Player.health > Monster.Player.maxHealth) {
+					Monster.Player.health = Monster.Player.maxHealth;
+					update();
 				}
-				healthBar.setProgress(health/maxHealth);
-				consoleWrite("Youve drank a health pot and youve heald to " + health + "HP.");
+				healthBar.setProgress(Monster.Player.health/Monster.Player.maxHealth);
+				consoleWrite("Youve drank a health pot and youve heald to " + Monster.Player.health + "HP.");
 				response = true;
-				if (health <= 0) {
+				if (Monster.Player.health <= 0) {
 					consoleWrite("Youve taken too much damage and have died.");
 				}
 				else if (enemyHealth <= 0) {
@@ -251,7 +314,7 @@ public class SampleController {
 			else {
 				consoleWrite("No health pots left");
 				response = true;
-				if (health <= 0) {
+				if (Monster.Player.health <= 0) {
 					consoleWrite("Youve taken too much damage and have died.");
 				}
 				else if (enemyHealth <= 0) {
@@ -278,26 +341,54 @@ public class SampleController {
 
 		}
 	}
-	public void lootdrop() {
-		float moneyDrop = (rand.nextInt(10)*luck)/100;
+	private void lootdrop() {
+		float moneyDrop = (rand.nextInt(100)*Monster.Player.luck)/100;
 		consoleWrite("!!!!youve found " + moneyDrop + " money on the ground!");
-        money += moneyDrop;
+		Monster.Player.money += moneyDrop;
         BigDecimal result;
-        result = round(money,2);
-        money = result.floatValue();
-        displaymoney(money);
-        if ((rand.nextInt(100)<=50)) {
-        	healthPots ++;
+        result = round(Monster.Player.money,2);
+        Monster.Player.money = result.floatValue();
+        displaymoney(Monster.Player.money);
+        float potChance = (Monster.Player.healthPotDropChance*Monster.Player.luck/25);
+        int potRoll = rand.nextInt(100);
+        consoleWrite("Youve rolled a " + potRoll + " / " + potChance);
+        if (potRoll<=potChance) {
+        	Monster.Player.healthPots ++;
+        	consoleWrite("!!!!Youve just looted a health pot!");
         }
-        consoleWrite("!!!!Youve just looted a health pot!");
-
+        else {
+        	consoleWrite("Thus you did not find a health pot on his body.");
+        }
+        
 	}
-	public static BigDecimal round(float d, int decimalPlace) {
+	private static BigDecimal round(float d, int decimalPlace) {
         BigDecimal bd = new BigDecimal(Float.toString(d));
         bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
         return bd;
     }
 	private void displaymoney(float money) {
 		playermoney.setText(""+money);
+	}
+	private void update() {
+    	
+    	int healthPots = Monster.Player.getHealthPots();
+    	double hpbar = SampleController.getHpbar();
+    	float health = Monster.Player.getHealth();
+    	float enemyHealth = SampleController.getEnemyHealth();
+    	float enemyNewHealth = SampleController.getEnemyNewHealth();
+    	String enemy = SampleController.getEnemy();
+    	Float maxHealth = Monster.Player.getMaxHealth();
+    	int maxAttackDamage = Monster.Player.getAttackDamage();
+    	int Luck = Monster.Player.getLuck();
+    	hppotAmmount.setText("" + healthPots);
+		healthBar.setProgress(hpbar);
+		hpAmmount.setText("" + health);
+		enemyHealthbar.setProgress(enemyHealth/enemyNewHealth);
+		enemyhpAmmount.setText("" + enemyHealth);
+		enemyName.setText(enemy);
+		menuPlayerMaxHealth.setText(""+maxHealth);
+		menuPlayerAttackDamage.setText(""+maxAttackDamage);
+		menuPlayerLuck.setText(""+Luck);
+		
 	}
 }
