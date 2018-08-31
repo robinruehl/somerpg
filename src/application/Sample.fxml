@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
@@ -78,18 +79,34 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <AnchorPane prefHeight="66.0" prefWidth="100.0">
+                        <AnchorPane prefHeight="150.0" prefWidth="100.0">
                            <children>
-                              <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Max Health:" />
-                              <Text layoutX="14.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attack Damage:" />
-                              <Text layoutX="14.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Luck:" />
+                              <Text layoutX="9.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Max Health:" />
+                              <Text layoutX="8.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attack Damage:" />
+                              <Text layoutX="9.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Luck:" />
+                              <Text layoutX="11.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Intelligence:" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="101.0" prefHeight="66.0" prefWidth="100.0">
+                        <AnchorPane layoutX="101.0" prefHeight="150.0" prefWidth="100.0">
                            <children>
-                              <Text fx:id="menuPlayerMaxHealth" layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Max Health" />
-                              <Text fx:id="menuPlayerAttackDamage" layoutX="14.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attack Damage" />
-                              <Text fx:id="menuPlayerLuck" layoutX="14.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Luck Stat" />
+                              <Text fx:id="menuPlayerMaxHealth" layoutX="7.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Max Health" />
+                              <Text fx:id="menuPlayerAttackDamage" layoutX="9.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attack Damage" />
+                              <Text fx:id="menuPlayerLuck" layoutX="7.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Luck Stat" />
+                              <Text fx:id="menuPlayerIntelligence" layoutX="9.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Intelligence" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="201.0" prefHeight="150.0" prefWidth="100.0">
+                           <children>
+                              <Button fx:id="increaseDamageStat" layoutX="-1.0" layoutY="45.0" mnemonicParsing="false" onAction="#damageincrease" text="+1" />
+                              <Button fx:id="increaseHealthStat" layoutX="-1.0" layoutY="15.0" mnemonicParsing="false" onAction="#healthincrease" text="+1" />
+                              <Button fx:id="increaseLuckStat" layoutX="-1.0" layoutY="75.0" mnemonicParsing="false" onAction="#luckincrease" text="+1" />
+                              <Button fx:id="increaseIntelligenceStat" layoutX="-1.0" layoutY="105.0" mnemonicParsing="false" onAction="#intelligenceincrease" text="+1" />
+                              <Text layoutX="39.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Perkpoints" />
+                              <Text fx:id="perkpoints" layoutX="34.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Points">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Text>
                            </children>
                         </AnchorPane>
                      </children></AnchorPane>
