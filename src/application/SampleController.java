@@ -1,10 +1,14 @@
 package application;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+//import application.InventoryManager.Weapon;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
@@ -166,6 +170,11 @@ public class SampleController {
 	}
 
 	public void startgame() {
+		ItemID = new int[1000];
+		ItemDamage = new int[1000];
+		ItemLuck = new int[1000];
+		ItemIntelligence = new int[1000];
+		ItemType = new String[1000];
 		int d = 1;
 		int e = 1000;
 		canloopde = true;
@@ -514,5 +523,103 @@ public class SampleController {
 			System.out.println("increased Intelligence");
 			update();
 		}
+	}/*
+	String items[];
+	int itemsA = 0;
+	Random rand2 = new Random();
+	String[] Types = {"Sword", "Axe", "Fist"};*/
+	/*
+	public void CreateWeapon (){
+		itemsA = itemsA+1;
+		//items[itemsA]=""+itemsA;
+		Weapon Weapon = new Weapon();
+		int ayy = rand.nextInt(30);
+		Weapon.dmg = ayy;
+		Weapon.type = Types[rand.nextInt(Types.length)];
+		Weapon.iD = itemsA;
+		System.out.println("created a " + Weapon.type + ", with a Damage stat of "+Weapon.dmg+", with the ID "+Weapon.iD);
+	}
+	public void ReadWeapon (int iD) {
+		Weapon Weapon = Weapon.equals("Weapon"+iD)
+	}
+	class Weapon {
+		String type;
+		int dmg;
+		int iD;
+		String name;
+	}*/
+	String[] Types = {"Sword", "Axe", "Bow"};
+	int itemsA = 0;
+	Random rand2 = new Random();
+	//ArrayList ItemName;
+	int[] ItemID;
+	int[] ItemDamage;
+	int[] ItemLuck;
+	int[] ItemIntelligence;
+	String[] ItemType;
+	
+	public class Item {
+		int ItemID;
+		int ItemDamage;
+		int ItemLuck;
+		int ItemIntelligence;
+		String ItemType;
+		class Weapon extends Item {
+			
+		}
+	}
+	
+	public void CreateWeaponArray (){
+		
+		//mit arrays?
+		itemsA = itemsA + 1;
+		System.out.println(itemsA);
+		ItemID[itemsA] = itemsA;
+		ItemDamage[itemsA] = rand2.nextInt(30)+30;
+		ItemLuck[itemsA] = rand2.nextInt(15)+10;
+		ItemIntelligence[itemsA] = rand2.nextInt(15)+10;
+		ItemType[itemsA] = Types[rand.nextInt(Types.length)];
+		System.out.println("created a " + ItemType[itemsA] + ", with a Damage stat of "+ItemDamage[itemsA]+", with a Luck stat of "+ItemLuck[itemsA]+", with an Intelligence stat of" +ItemDamage[itemsA]+" and with the ID "+ItemID[itemsA]);
+		
+		
+		
+	
+	}
+	public void CreateWeaponClass () throws InstantiationException, IllegalAccessException, ClassNotFoundException{
+		
+		//mit class?
+		itemsA = itemsA + 1;
+		System.out.println(itemsA);
+		String className = "Weapon";
+		Item.Weapon Weapon = (application.SampleController.Item.Weapon) Class.forName(className).newInstance();
+		//Item Weapon = new Item();
+		Weapon.ItemID = itemsA;
+		Weapon.ItemDamage = rand2.nextInt(30)+30;
+		Weapon.ItemLuck = rand2.nextInt(15)+10;
+		Weapon.ItemIntelligence = rand2.nextInt(15)+10;
+		Weapon.ItemType = Types[rand.nextInt(Types.length)];
+		System.out.println("created a class based " + Weapon.ItemType + ", with a Damage stat of "+Weapon.ItemDamage+", with a Luck stat of "+Weapon.ItemLuck+", with an Intelligence stat of" +Weapon.ItemIntelligence+" and with the ID "+Weapon.ItemID);
+	
+	}
+	
+	public void ReadWeaponArray () {
+		
+	}
+	
+	public void ReadWeaponClass () {
+		Class<?>[] a = Item.class.getClasses();
+		int i = 0;
+		System.out.println("im trying :(");
+		while (i<a.length)
+		{	
+			
+			Class<? extends Class[]> c = a.getClass();
+			System.out.println(c.getSimpleName());
+			System.out.println(i);
+			String b = a[i].getName();
+			System.out.println(b);
+			i++;
+		}
+		
 	}
 }

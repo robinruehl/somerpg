@@ -115,8 +115,26 @@
           </Tab>
             <Tab text="Shop">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="buttonCreateWeapon" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CreateWeaponClass" prefHeight="25.0" prefWidth="99.0" text="Create Weapon" />
+                        <Button fx:id="buttonCreateWeapon1" layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#ReadWeaponClass" prefHeight="25.0" prefWidth="99.0" text="Read Weapon" />
+                     </children></AnchorPane>
                </content>
+            </Tab>
+            <Tab text="Inventory">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Reload" />
+                        <Text layoutX="635.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" />
+                        <Text layoutX="635.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Damage" />
+                        <Text layoutX="635.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Luck" wrappingWidth="44.302734375" />
+                        <Text layoutX="635.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
+                        <Text layoutX="635.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Intelligence" />
+                     </children>
+                  </AnchorPane>
+              </content>
             </Tab>
         </tabs>
       </TabPane>
