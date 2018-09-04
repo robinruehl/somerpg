@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+<AnchorPane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <children>
       <ToolBar prefHeight="40.0" prefWidth="800.0">
          <items>
@@ -46,9 +46,9 @@
                         <Button fx:id="buttonEnter" layoutX="482.0" layoutY="298.0" mnemonicParsing="false" onAction="#newInput" prefHeight="25.0" prefWidth="45.0" text="Enter" />
                         <AnchorPane layoutX="689.0" layoutY="1.0" prefHeight="236.0" prefWidth="103.0">
                            <children>
-                              <ProgressBar fx:id="healthBar" layoutY="48.0" maxHeight="1.0" prefHeight="1.0" prefWidth="103.0" progress="0.0" />
+                              <ProgressBar id="healthBar" fx:id="healthBar" layoutY="48.0" maxHeight="1.0" prefHeight="1.0" prefWidth="103.0" progress="0.51" stylesheets="@application.css" />
                               <Text layoutX="5.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Health" />
-                              <ProgressBar layoutY="100.0" maxHeight="1.0" prefHeight="1.0" prefWidth="103.0" progress="0.0" fx:id="xpBar" />
+                              <ProgressBar id="xpbar" layoutY="100.0" maxHeight="1.0" prefHeight="1.0" prefWidth="103.0" progress="0.5" fx:id="xpBar" />
                               <Text layoutX="1.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Experience" />
                               <Text layoutX="3.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Money:" />
                               <Text fx:id="playermoney" layoutX="48.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
@@ -68,7 +68,7 @@
                            <children>
                               <Text layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Health" />
                               <Text fx:id="enemyName" layoutX="56.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enemy" />
-                              <ProgressBar fx:id="enemyHealthbar" layoutY="48.0" maxHeight="1.0" prefHeight="1.0" prefWidth="103.0" progress="0.0" />
+                              <ProgressBar id="healthBar" fx:id="enemyHealthbar" layoutY="48.0" maxHeight="1.0" prefHeight="1.0" prefWidth="103.0" progress="0.48" stylesheets="@application.css" />
                               <Text fx:id="enemyhpAmmount" layoutX="44.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HP" />
                            </children>
                         </AnchorPane>
@@ -119,6 +119,8 @@
                      <children>
                         <Button fx:id="buttonCreateWeapon" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#CreateWeaponClass" prefHeight="25.0" prefWidth="99.0" text="Create Weapon" />
                         <Button fx:id="buttonCreateWeapon1" layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#ReadWeaponClass" prefHeight="25.0" prefWidth="99.0" text="Read Weapon" />
+                        <Button fx:id="buttonCreateWeapon2" layoutX="129.0" layoutY="14.0" mnemonicParsing="false" onAction="#CreateWeaponArray" prefHeight="25.0" prefWidth="99.0" text="Create Weapon" />
+                        <Button fx:id="buttonCreateWeapon11" layoutX="129.0" layoutY="39.0" mnemonicParsing="false" onAction="#ReadWeaponArray" prefHeight="25.0" prefWidth="99.0" text="Read Weapon" />
                      </children></AnchorPane>
                </content>
             </Tab>

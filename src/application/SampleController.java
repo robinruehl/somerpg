@@ -175,6 +175,7 @@ public class SampleController {
 		ItemLuck = new int[1000];
 		ItemIntelligence = new int[1000];
 		ItemType = new String[1000];
+		ItemName = new String[1000];
 		int d = 1;
 		int e = 1000;
 		canloopde = true;
@@ -548,6 +549,9 @@ public class SampleController {
 		int iD;
 		String name;
 	}*/
+	String[] NameIntelli = {" ","slightly sparkling ","sparkling ","somewhat magical ","magical "};
+	String[] NameLuck = {" ","slightly special ","special ","somewhat Irish ","Irish "};
+	String[] NameDamage = {"blunt ","dull ","slightly sharpened ","sharp ","Nippon ", "way too sharp "};
 	String[] Types = {"Sword", "Axe", "Bow"};
 	int itemsA = 0;
 	Random rand2 = new Random();
@@ -556,6 +560,7 @@ public class SampleController {
 	int[] ItemDamage;
 	int[] ItemLuck;
 	int[] ItemIntelligence;
+	String[] ItemName;
 	String[] ItemType;
 	
 	public class Item {
@@ -572,15 +577,63 @@ public class SampleController {
 	public void CreateWeaponArray (){
 		
 		//mit arrays?
-		itemsA = itemsA + 1;
 		System.out.println(itemsA);
 		ItemID[itemsA] = itemsA;
-		ItemDamage[itemsA] = rand2.nextInt(30)+30;
-		ItemLuck[itemsA] = rand2.nextInt(15)+10;
-		ItemIntelligence[itemsA] = rand2.nextInt(15)+10;
+		ItemDamage[itemsA] = rand2.nextInt(60);
+		ItemLuck[itemsA] = rand2.nextInt(30);
+		ItemIntelligence[itemsA] = rand2.nextInt(25);
 		ItemType[itemsA] = Types[rand.nextInt(Types.length)];
-		System.out.println("created a " + ItemType[itemsA] + ", with a Damage stat of "+ItemDamage[itemsA]+", with a Luck stat of "+ItemLuck[itemsA]+", with an Intelligence stat of" +ItemDamage[itemsA]+" and with the ID "+ItemID[itemsA]);
+		if (ItemDamage[itemsA]>50) {
+			ItemName[itemsA] = NameDamage[4];
+		}
+		else if (ItemDamage[itemsA]>45) {
+			ItemName[itemsA] = NameDamage[3];
+		}
+		else if (ItemDamage[itemsA]>25) {
+			ItemName[itemsA] = NameDamage[2];
+		}
+		else if (ItemDamage[itemsA]>10) {
+			ItemName[itemsA] = NameDamage[1];
+		}
+		else {
+			ItemName[itemsA] = NameDamage[0];
+		}
 		
+		if (ItemLuck[itemsA]>25) {
+			ItemName[itemsA] = ItemName[itemsA] + NameLuck[4];
+		}
+		else if (ItemLuck[itemsA]>22) {
+			ItemName[itemsA] = ItemName[itemsA] + NameLuck[3];
+		}
+		else if (ItemLuck[itemsA]>17) {
+			ItemName[itemsA] = ItemName[itemsA] + NameLuck[2];
+		}
+		else if (ItemLuck[itemsA]>12) {
+			ItemName[itemsA] = ItemName[itemsA] + NameLuck[1];
+		}
+		else {
+			ItemName[itemsA] = ItemName[itemsA] + NameLuck[0];
+		}
+		
+		if (ItemIntelligence[itemsA]>22) {
+			ItemName[itemsA] = ItemName[itemsA] + NameIntelli[4];
+		}
+		else if (ItemIntelligence[itemsA]>19) {
+			ItemName[itemsA] = ItemName[itemsA] + NameIntelli[3];
+		}
+		else if (ItemIntelligence[itemsA]>12) {
+			ItemName[itemsA] = ItemName[itemsA] + NameIntelli[2];
+		}
+		else if (ItemIntelligence[itemsA]>8) {
+			ItemName[itemsA] = ItemName[itemsA] + NameIntelli[1];
+		}
+		else {
+			ItemName[itemsA] = ItemName[itemsA] + NameIntelli[0];
+		}
+		
+		ItemName[itemsA] += ItemType[itemsA];
+		System.out.println("created the item "+ ItemName[itemsA] + " with the Type " + ItemType[itemsA] + ", with a Damage stat of "+ItemDamage[itemsA]+", with a Luck stat of "+ItemLuck[itemsA]+", with an Intelligence stat of " +ItemDamage[itemsA]+" and with the ID "+ItemID[itemsA]);
+		itemsA = itemsA + 1;
 		
 		
 	
@@ -588,7 +641,6 @@ public class SampleController {
 	public void CreateWeaponClass () throws InstantiationException, IllegalAccessException, ClassNotFoundException{
 		
 		//mit class?
-		itemsA = itemsA + 1;
 		System.out.println(itemsA);
 		String className = "Weapon";
 		Item.Weapon Weapon = (application.SampleController.Item.Weapon) Class.forName(className).newInstance();
@@ -599,10 +651,19 @@ public class SampleController {
 		Weapon.ItemIntelligence = rand2.nextInt(15)+10;
 		Weapon.ItemType = Types[rand.nextInt(Types.length)];
 		System.out.println("created a class based " + Weapon.ItemType + ", with a Damage stat of "+Weapon.ItemDamage+", with a Luck stat of "+Weapon.ItemLuck+", with an Intelligence stat of" +Weapon.ItemIntelligence+" and with the ID "+Weapon.ItemID);
-	
+		itemsA = itemsA + 1;
 	}
 	
 	public void ReadWeaponArray () {
+		int arg = 0;
+		while (arg<itemsA) {
+			System.out.println("ItemID: "+ItemID[arg]);
+			System.out.println("ItemType: "+ItemType[arg]);
+			System.out.println("ItemDamage: "+ItemDamage[arg]);
+			System.out.println("ItemLuck: "+ItemLuck[arg]);
+			System.out.println("ItemIntelligence: "+ItemIntelligence[arg]);
+			arg++;
+		}
 		
 	}
 	
